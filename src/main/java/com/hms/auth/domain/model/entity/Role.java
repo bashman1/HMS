@@ -20,7 +20,8 @@ import java.util.UUID;
  */
 @Entity
 @Table(name = "roles", schema = "auth", indexes = {
-        @Index(name = "idx_roles_name", columnList = "name", unique = true)
+        @Index(name = "idx_roles_name", columnList = "name", unique = true),
+        @Index(name = "idx_roles_uuid", columnList = "uuid")
 })
 @Getter
 @Setter
@@ -32,9 +33,13 @@ import java.util.UUID;
 public class Role {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false, nullable = false)
-    private UUID id;
+    private Long id;
+
+    @Column(name = "uuid", columnDefinition = "uuid", nullable = false, unique = true)
+    @Builder.Default
+    private UUID uuid = UUID.randomUUID();
 
     @Column(name = "name", nullable = false, unique = true, length = 50)
     private String name;

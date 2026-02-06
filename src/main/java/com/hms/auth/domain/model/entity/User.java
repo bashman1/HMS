@@ -23,7 +23,8 @@ import java.util.UUID;
 @Table(name = "users", schema = "auth", indexes = {
         @Index(name = "idx_users_email", columnList = "email", unique = true),
         @Index(name = "idx_users_username", columnList = "username", unique = true),
-        @Index(name = "idx_users_user_type", columnList = "user_type")
+        @Index(name = "idx_users_user_type", columnList = "user_type"),
+        @Index(name = "idx_users_uuid", columnList = "uuid")
 })
 @Getter
 @Setter
@@ -35,9 +36,13 @@ import java.util.UUID;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false, nullable = false)
-    private UUID id;
+    private Long id;
+
+    @Column(name = "uuid", columnDefinition = "uuid", nullable = false, unique = true)
+    @Builder.Default
+    private UUID uuid = UUID.randomUUID();
 
     @Column(name = "username", nullable = false, unique = true, length = 50)
     private String username;

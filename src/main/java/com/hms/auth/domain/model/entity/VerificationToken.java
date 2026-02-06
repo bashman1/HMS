@@ -23,7 +23,8 @@ import java.util.UUID;
         @Index(name = "idx_verification_tokens_token", columnList = "token", unique = true),
         @Index(name = "idx_verification_tokens_user_id", columnList = "user_id"),
         @Index(name = "idx_verification_tokens_type", columnList = "token_type"),
-        @Index(name = "idx_verification_tokens_expires_at", columnList = "expires_at")
+        @Index(name = "idx_verification_tokens_expires_at", columnList = "expires_at"),
+        @Index(name = "idx_verification_tokens_uuid", columnList = "uuid")
 })
 @Getter
 @Setter
@@ -35,9 +36,13 @@ import java.util.UUID;
 public class VerificationToken {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false, nullable = false)
-    private UUID id;
+    private Long id;
+
+    @Column(name = "uuid", columnDefinition = "uuid", nullable = false, unique = true)
+    @Builder.Default
+    private UUID uuid = UUID.randomUUID();
 
     @Column(name = "token", nullable = false, unique = true, length = 255)
     private String token;
