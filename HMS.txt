@@ -1,0 +1,53 @@
+Here are the **most common and important features** found in modern **Hospital/Hospital Management Information Systems (HMIS / HIS)** in 2025:
+
+### Core / Must-Have Modules
+| #  | Module                          | Main Features / Key Functions                                                                 |
+|----|---------------------------------|-----------------------------------------------------------------------------------------------|
+| 1  | Patient Registration & OPD      | New/old patient registration, Aadhaar/EMR lookup, UHID/MR number generation, token/slot booking, quick registration, demographic & insurance data capture |
+| 2  | Doctor Consultation (OPD/IPD)   | EMR / progress notes, vital signs, complaints, diagnosis (ICD-10), clinical templates, past visit history, allergy & chronic illness flags |
+| 3  | Appointment & Queue Management  | Online/offline booking, doctor schedule, slot management, walk-in handling, SMS/WhatsApp reminders, queue display, token calling |
+| 4  | Inpatient (IPD) Management      | Bed/ward occupancy, IPD registration, transfer/discharge, bed blocking, daily treatment chart, doctor round notes, diet planning |
+| 5  | Nursing & TPR Chart             | Electronic Medication Administration Record (e-MAR), vital charting, intake-output, nursing notes, care plan, handover notes |
+| 6  | Laboratory Information System (LIS) | Test order, barcode sample collection, result entry (machine interface + manual), critical value alert, report dispatch (PDF/WhatsApp) |
+| 7  | Radiology / PACS Integration    | X-ray, CT, MRI, USG order, DICOM image upload/view, radiologist reporting, report approval workflow, CD burning |
+| 8  | Pharmacy (IPD + OPD)            | Drug order from doctor screen, stock deduction, dispensing, return to store, purchase order generation, expiry alert |
+| 9  | Billing & Cash Counter          | OPD/IPD billing, advance collection, package / TPA billing, discount management, receipt printing, refund, online payment gateway |
+| 10 | Insurance / TPA / Cashless      | Insurance card scanning, eligibility check, pre-auth generation & approval, claim form generation, deduction management, discharge summary for claim |
+
+### Important Supporting / Value-adding Modules
+| #  | Module                          | Key Features                                                                                  |
+|----|---------------------------------|-----------------------------------------------------------------------------------------------|
+| 11 | Operation Theatre (OT) Management | OT scheduling, surgery booking, anaesthesia chart, implant tracking, surgeon & team allocation, OT consumable billing |
+| 12 | ICU / Critical Care             | Ventilator & monitor integration, sedation score, Glasgow scale, CRRT/dialysis chart, ABG entry |
+| 13 | Blood Bank                      | Donor registration, blood request, cross-match, issue, stock management, transfusion reaction recording |
+| 14 | Inventory & Store               | Multi-store management, indent, purchase order, GRN, issue to department, stock expiry alert, ABC/VED analysis |
+| 15 | CSSD (Sterile Supply)           | Instrument set tracking, sterilization cycle record, issue/return to OT/wards |
+| 16 | Dietary / Food Services         | Diet order from doctor/nurse, diet sheet preparation, food tray tracking, calorie calculation |
+| 17 | Discharge Summary & Medico-legal| Auto-fill from EMR, final diagnosis, treatment given, advice on discharge, death summary, MLC register |
+| 18 | Electronic Medical Record (EMR) | Longitudinal patient record, document scanning (previous reports), clinical decision support, drug-drug interaction alert |
+| 19 | Reports & Analytics             | Doctor performance, department revenue, bed occupancy %, average length of stay, lab turn-around-time, disease pattern, financial MIS |
+| 20 | Mobile App / Patient Portal     | Appointment booking, lab/radiology report view, payment, tele-consultation, feedback, medicine reminder |
+
+### Modern / Emerging / High-demand Features (2024–2026)
+- AI-assisted clinical documentation (speech-to-text, auto-suggest diagnosis)
+- Clinical decision support rules (CDSS)
+- Integration with ABHA (Ayushman Bharat Health Account) / ABDM ecosystem
+- WhatsApp / SMS / email patient communication engine
+- Telemedicine / video consultation module
+- QR-code based patient identification wristband
+- Contactless patient check-in kiosk
+- Dashboard for infection control (HAI surveillance)
+- Predictive analytics for bed/OT/staff requirement
+- Integration with government portals (e-Sanjeevani, PMJAY, state insurance schemes)
+- HL7 FHIR / DICOM standard compliance
+- Cloud-based multi-location hospital group management
+
+Which type of hospital / setting are you most interested in?
+
+- Small clinic / nursing home (10–50 beds)
+- Medium multi-specialty hospital (50–250 beds)
+- Large corporate chain / tertiary care (>250 beds)
+- Government / teaching hospital
+- Day-care / diagnostics center only
+
+This helps narrow down which features are truly critical vs nice-to-have in your context. 😄

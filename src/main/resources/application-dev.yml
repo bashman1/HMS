@@ -1,0 +1,84 @@
+# Development Environment Configuration
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/hms_auth
+    username: hms_user
+    password: hms_password
+    hikari:
+      maximum-pool-size: 5
+      minimum-idle: 2
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+  
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        generate_statistics: true
+  
+  mail:
+    host: localhost
+    port: 1025
+    username: ""
+    password: ""
+    properties:
+      mail:
+        smtp:
+          auth: false
+          starttls:
+            enable: false
+
+# Logging - More verbose for development
+logging:
+  level:
+    root: INFO
+    com.hms: DEBUG
+    org.springframework.security: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.springframework.web: DEBUG
+
+# OpenAPI - Enable in development
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+
+# Actuator - Expose all endpoints in development
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+
+# Development-specific settings
+app:
+  jwt:
+    secret: dev-secret-key-for-development-only-must-be-at-least-256-bits-long-for-hs256
+    access-token-expiration: 3600000     # 1 hour for easier development
+    refresh-token-expiration: 604800000  # 7 days
+  
+  security:
+    cors:
+      allowed-origins: "*"
+    rate-limiting:
+      enabled: false  # Disable rate limiting in development
+    brute-force:
+      max-attempts: 100  # More lenient in development
+      lock-duration: 60
+  
+  email:
+    from: dev@hms.local
+    verification:
+      base-url: http://localhost:3000/verify-email
+    password-reset:
+      base-url: http://localhost:3000/reset-password

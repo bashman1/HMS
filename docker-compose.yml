@@ -1,0 +1,124 @@
+version: '3.9'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:16-alpine
+    container_name: hms-postgres
+    environment:
+      POSTGRES_DB: hms_auth
+      POSTGRES_USER: hms_user
+      POSTGRES_PASSWORD: hms_password
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./docker/init-db:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U hms_user -d hms_auth"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    networks:
+      - hms-network
+    restart: unless-stopped
+
+  # Redis for Token Blacklisting and Rate Limiting Cache
+  redis:
+    image: redis:7-alpine
+    container_name: hms-redis
+    command: redis-server --appendonly yes --requirepass hms_redis_password
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "hms_redis_password", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - hms-network
+    restart: unless-stopped
+
+  # MailHog for Email Testing (Development Only)
+  mailhog:
+    image: mailhog/mailhog:latest
+    container_name: hms-mailhog
+    ports:
+      - "1025:1025"  # SMTP
+      - "8025:8025"  # Web UI
+    networks:
+      - hms-network
+    restart: unless-stopped
+    profiles:
+      - dev
+
+  # HMS Authentication Service
+  auth-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: hms-auth-service
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/hms_auth
+      SPRING_DATASOURCE_USERNAME: hms_user
+      SPRING_DATASOURCE_PASSWORD: hms_password
+      SPRING_MAIL_HOST: mailhog
+      SPRING_MAIL_PORT: 1025
+      JWT_SECRET: ${JWT_SECRET:-your-256-bit-secret-key-for-development-only-change-in-production}
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: hms_redis_password
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8080/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    networks:
+      - hms-network
+    restart: unless-stopped
+
+  # PgAdmin for Database Management (Development Only)
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: hms-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@hms.local
+      PGADMIN_DEFAULT_PASSWORD: admin
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    ports:
+      - "5050:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    depends_on:
+      - postgres
+    networks:
+      - hms-network
+    restart: unless-stopped
+    profiles:
+      - dev
+
+networks:
+  hms-network:
+    driver: bridge
+    name: hms-network
+
+volumes:
+  postgres_data:
+    name: hms-postgres-data
+  redis_data:
+    name: hms-redis-data
+  pgadmin_data:
+    name: hms-pgadmin-data
