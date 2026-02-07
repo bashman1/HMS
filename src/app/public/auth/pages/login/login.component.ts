@@ -17,8 +17,8 @@ import { AuthService } from '@core/services/auth.service';
             <a routerLink="/" class="inline-flex items-center">
               <span class="text-3xl font-bold text-primary-600">HMS</span>
             </a>
-            <h1 class="mt-6 text-3xl font-bold text-secondary-900">Welcome back</h1>
-            <p class="mt-2 text-secondary-600">Sign in to your account to continue</p>
+            <h1 class="mt-6 text-3xl font-bold text-secondary-900 dark:text-white">Welcome back</h1>
+            <p class="mt-2 text-secondary-600 dark:text-secondary-400">Sign in to your account to continue</p>
           </div>
 
           <div *ngIf="error()" class="alert alert-error mb-6">
@@ -55,7 +55,7 @@ import { AuthService } from '@core/services/auth.service';
                 <button
                   type="button"
                   (click)="showPassword.set(!showPassword())"
-                  class="absolute inset-y-0 right-0 px-3 flex items-center text-secondary-400 hover:text-secondary-600"
+                  class="absolute inset-y-0 right-0 px-3 flex items-center text-secondary-400 dark:text-secondary-500 hover:text-secondary-600 dark:hover:text-secondary-300"
                 >
                   <svg *ngIf="showPassword()" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"/>
@@ -119,7 +119,7 @@ import { AuthService } from '@core/services/auth.service';
             </div>
           </div>
 
-          <p class="mt-8 text-center text-secondary-600">
+          <p class="mt-8 text-center text-secondary-600 dark:text-secondary-400">
             Don't have an account?
             <a routerLink="/auth/register" class="link">Create one now</a>
           </p>

@@ -56,8 +56,8 @@ import { AuthService } from '@core/services/auth.service';
             <a routerLink="/" class="inline-flex items-center">
               <span class="text-3xl font-bold text-primary-600">HMS</span>
             </a>
-            <h1 class="mt-6 text-3xl font-bold text-secondary-900">Create an account</h1>
-            <p class="mt-2 text-secondary-600">Start your free 14-day trial today</p>
+            <h1 class="mt-6 text-3xl font-bold text-secondary-900 dark:text-white">Create an account</h1>
+            <p class="mt-2 text-secondary-600 dark:text-secondary-400">Start your free 14-day trial today</p>
           </div>
 
           <div *ngIf="error()" class="alert alert-error mb-6">

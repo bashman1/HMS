@@ -62,6 +62,8 @@ src/
 - Maven 3.8+
 - PostgreSQL 16+
 - Docker & Docker Compose (optional)
+- Node.js 16+
+- Angular CLI 16+
 
 ### Quick Start with Docker
 
@@ -78,6 +80,8 @@ http://localhost:8080/api/v1/swagger-ui.html
 
 ### Local Development
 
+#### Backend
+
 ```bash
 # Build the application
 ./mvnw clean package -DskipTests
@@ -87,6 +91,22 @@ http://localhost:8080/api/v1/swagger-ui.html
 
 # Run application
 java -jar target/hms-auth-service-1.0.0-SNAPSHOT.jar --spring.profiles.active=dev
+
+# Or run with Maven
+mvn spring-boot:run -Dspring-boot.run.profiles=dev
+```
+
+#### Frontend
+
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm start
+
+# Access the application
+http://localhost:4200
 ```
 
 ### Environment Variables
