@@ -61,7 +61,7 @@ public class JwtTokenProvider {
 
         return Jwts.builder()
                 .id(UUID.randomUUID().toString())
-                .subject(user.getId().toString())
+                .subject(user.getUuid().toString())
                 .issuer(jwtProperties.issuer())
                 .audience().add(jwtProperties.audience()).and()
                 .issuedAt(Date.from(now))
@@ -89,7 +89,7 @@ public class JwtTokenProvider {
 
         return Jwts.builder()
                 .id(UUID.randomUUID().toString())
-                .subject(user.getId().toString())
+                .subject(user.getUuid().toString())
                 .issuer(jwtProperties.issuer())
                 .audience().add(jwtProperties.audience()).and()
                 .issuedAt(Date.from(now))

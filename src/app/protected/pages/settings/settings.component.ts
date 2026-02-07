@@ -151,10 +151,10 @@ export class SettingsComponent {
   authService = inject(AuthService);
   private toastService = inject(ToastService);
 
-  emailNotifications = signal(true);
-  pushNotifications = signal(false);
-  smsNotifications = signal(false);
-  showActivityStatus = signal(true);
+  emailNotifications = true;
+  pushNotifications = false;
+  smsNotifications = false;
+  showActivityStatus = true;
 
   changePassword(): void {
     this.toastService.show({

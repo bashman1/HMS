@@ -20,7 +20,7 @@ import { AuthService } from '@core/services/auth.service';
 
       <!-- Stats Grid -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div *ngFor="let stat of stats; track stat.title" class="card p-6 hover:shadow-soft transition-shadow">
+        <div *ngFor="let stat of stats; trackBy: trackByTitle" class="card p-6 hover:shadow-soft transition-shadow">
           <div class="flex items-center justify-between">
             <div>
               <p class="text-sm font-medium text-secondary-500">{{ stat.title }}</p>
@@ -56,7 +56,7 @@ import { AuthService } from '@core/services/auth.service';
           </div>
           <div class="card-body">
             <div class="space-y-4">
-              <div *ngFor="let activity of recentActivity; track activity.id" class="flex items-center space-x-4">
+              <div *ngFor="let activity of recentActivity; trackBy: trackById" class="flex items-center space-x-4">
                 <div class="w-10 h-10 rounded-full flex items-center justify-center" [ngClass]="activity.iconBg">
                   <svg class="w-5 h-5" [ngClass]="activity.iconColor" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" [attr.d]="activity.icon"/>
@@ -81,7 +81,7 @@ import { AuthService } from '@core/services/auth.service';
             <h2 class="text-lg font-semibold text-secondary-900">Quick Actions</h2>
           </div>
           <div class="card-body space-y-3">
-            <button *ngFor="let action of quickActions; track action.title"
+            <button *ngFor="let action of quickActions; trackBy: trackByTitle"
               class="w-full flex items-center px-4 py-3 text-left rounded-lg border border-secondary-200 hover:border-primary-300 hover:bg-primary-50 transition-colors group"
             >
               <div class="w-10 h-10 rounded-lg flex items-center justify-center mr-4" [ngClass]="action.iconBg">
@@ -195,4 +195,12 @@ export class DashboardComponent {
       iconColor: 'text-purple-600',
     },
   ];
+
+  trackByTitle(index: number, item: any): string {
+    return item.title;
+  }
+
+  trackById(index: number, item: any): number {
+    return item.id;
+  }
 }

@@ -1,4 +1,5 @@
 import { Injectable, signal, computed } from '@angular/core';
+import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap, catchError, throwError } from 'rxjs';
 import { environment } from '@env/environment';
@@ -28,6 +29,7 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
+    private router: Router,
     private toastService: ToastService
   ) {
     this.initializeAuth();
@@ -107,11 +109,18 @@ export class AuthService {
     if (refreshToken) {
       this.http.post<MessageResponse>(`${this.apiUrl}/logout`, { refreshToken })
         .subscribe({
-          complete: () => this.clearAuth(),
-          error: () => this.clearAuth()
+          complete: () => {
+            this.clearAuth();
+            this.router.navigate(['/auth/login']);
+          },
+          error: () => {
+            this.clearAuth();
+            this.router.navigate(['/auth/login']);
+          }
         });
     } else {
       this.clearAuth();
+      this.router.navigate(['/auth/login']);
     }
     
     this.toastService.show({

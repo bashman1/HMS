@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ToastService } from '@core/services/toast.service';
+import { Toast } from '@core/models/toast.model';
 
 @Component({
   selector: 'app-toast',
@@ -8,7 +9,7 @@ import { ToastService } from '@core/services/toast.service';
   imports: [CommonModule],
   template: `
     <div class="fixed z-50 flex flex-col gap-2 p-4 pointer-events-none top-4 right-4">
-      <div *ngFor="let toast of toastService.toasts; track: toast.id"
+      <div *ngFor="let toast of toastService.toasts; trackBy: trackByToastId"
         class="pointer-events-auto flex items-start gap-3 p-4 rounded-lg shadow-lg animate-slide-up max-w-sm"
         [ngClass]="{
           'bg-green-50 border border-green-200': toast.type === 'success',
@@ -59,4 +60,8 @@ import { ToastService } from '@core/services/toast.service';
 })
 export class ToastComponent {
   toastService = inject(ToastService);
+
+  trackByToastId(index: number, toast: Toast): string {
+    return toast.id;
+  }
 }
