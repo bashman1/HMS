@@ -268,9 +268,9 @@ public class AuthenticationService implements AuthenticationUseCase {
     public MessageResponse logoutAll(String accessToken) {
         log.debug("Processing logout from all devices");
 
-        UUID userId = jwtTokenProvider.getUserIdFromToken(accessToken);
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new UserNotFoundException("id", userId.toString()));
+        UUID userUuid = jwtTokenProvider.getUserIdFromToken(accessToken);
+        User user = userRepository.findByUuid(userUuid)
+                .orElseThrow(() -> new UserNotFoundException("uuid", userUuid.toString()));
 
         // Revoke all refresh tokens
         refreshTokenRepository.revokeAllByUser(user, RefreshToken.REVOKED_LOGOUT);
@@ -405,9 +405,9 @@ public class AuthenticationService implements AuthenticationUseCase {
 
         passwordValidationService.validate(request.newPassword());
 
-        UUID userId = jwtTokenProvider.getUserIdFromToken(accessToken);
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new UserNotFoundException("id", userId.toString()));
+        UUID userUuid = jwtTokenProvider.getUserIdFromToken(accessToken);
+        User user = userRepository.findByUuid(userUuid)
+                .orElseThrow(() -> new UserNotFoundException("uuid", userUuid.toString()));
 
         // Verify current password
         if (!passwordEncoder.matches(request.currentPassword(), user.getPassword())) {

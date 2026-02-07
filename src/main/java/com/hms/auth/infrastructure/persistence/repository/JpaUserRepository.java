@@ -13,7 +13,7 @@ import java.util.UUID;
  * JPA repository interface for User entity.
  */
 @Repository
-public interface JpaUserRepository extends JpaRepository<User, UUID> {
+public interface JpaUserRepository extends JpaRepository<User, Long> {
 
     /**
      * Finds a user by email.
@@ -24,6 +24,11 @@ public interface JpaUserRepository extends JpaRepository<User, UUID> {
      * Finds a user by username.
      */
     Optional<User> findByUsername(String username);
+
+    /**
+     * Finds a user by UUID.
+     */
+    Optional<User> findByUuid(UUID uuid);
 
     /**
      * Finds a user by email or username.

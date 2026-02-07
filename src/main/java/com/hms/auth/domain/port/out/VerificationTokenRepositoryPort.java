@@ -7,7 +7,6 @@ import com.hms.auth.domain.model.entity.VerificationToken.TokenType;
 import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 /**
  * Port interface for verification token repository operations.
@@ -33,7 +32,7 @@ public interface VerificationTokenRepositoryPort {
      * @param id the token ID
      * @return an Optional containing the token if found
      */
-    Optional<VerificationToken> findById(UUID id);
+    Optional<VerificationToken> findById(Long id);
 
     /**
      * Finds a verification token by token string.
@@ -99,5 +98,5 @@ public interface VerificationTokenRepositoryPort {
      *
      * @param id the token ID
      */
-    void deleteById(UUID id);
+    void deleteById(Long id);
 }

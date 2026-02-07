@@ -171,8 +171,9 @@ app:
     password-reset:
       expiration: 3600000   # 1 hour
       base-url: ${PASSWORD_RESET_URL:http://localhost:3000/reset-password}
-  
+
   # Token Storage
   token:
     blacklist:
       cleanup-interval: 3600000  # 1 hour
+

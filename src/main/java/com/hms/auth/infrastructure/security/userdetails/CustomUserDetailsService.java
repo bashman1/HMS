@@ -52,35 +52,35 @@ public class CustomUserDetailsService implements UserDetailsService {
     }
 
     /**
-     * Loads a user by ID.
+     * Loads a user by UUID.
      *
-     * @param userId the user ID
+     * @param userUuid the user UUID
      * @return the user details
      * @throws UserNotFoundException if user not found
      */
     @Transactional(readOnly = true)
-    public UserDetails loadUserById(UUID userId) {
-        log.debug("Loading user by ID: {}", userId);
+    public UserDetails loadUserByUuid(UUID userUuid) {
+        log.debug("Loading user by UUID: {}", userUuid);
 
-        User user = userRepository.findById(userId)
+        User user = userRepository.findByUuid(userUuid)
                 .orElseThrow(() -> {
-                    log.debug("User not found with ID: {}", userId);
-                    return new UserNotFoundException("id", userId.toString());
+                    log.debug("User not found with UUID: {}", userUuid);
+                    return new UserNotFoundException("uuid", userUuid.toString());
                 });
 
         return new CustomUserDetails(user);
     }
 
     /**
-     * Loads a user entity by ID.
+     * Loads a user entity by UUID.
      *
-     * @param userId the user ID
+     * @param userUuid the user UUID
      * @return the user entity
      * @throws UserNotFoundException if user not found
      */
     @Transactional(readOnly = true)
-    public User loadUserEntityById(UUID userId) {
-        return userRepository.findById(userId)
-                .orElseThrow(() -> new UserNotFoundException("id", userId.toString()));
+    public User loadUserEntityByUuid(UUID userUuid) {
+        return userRepository.findByUuid(userUuid)
+                .orElseThrow(() -> new UserNotFoundException("uuid", userUuid.toString()));
     }
 }

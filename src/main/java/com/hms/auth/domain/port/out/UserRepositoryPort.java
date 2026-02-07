@@ -29,7 +29,15 @@ public interface UserRepositoryPort {
      * @param id the user ID
      * @return an Optional containing the user if found
      */
-    Optional<User> findById(UUID id);
+    Optional<User> findById(Long id);
+
+    /**
+     * Finds a user by UUID.
+     *
+     * @param uuid the user UUID
+     * @return an Optional containing the user if found
+     */
+    Optional<User> findByUuid(UUID uuid);
 
     /**
      * Finds a user by email.
@@ -76,7 +84,7 @@ public interface UserRepositoryPort {
      *
      * @param id the user ID
      */
-    void deleteById(UUID id);
+    void deleteById(Long id);
 
     /**
      * Counts all users.

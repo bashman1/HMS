@@ -5,13 +5,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
-import java.util.UUID;
 
 /**
  * JPA repository interface for Role entity.
  */
 @Repository
-public interface JpaRoleRepository extends JpaRepository<Role, UUID> {
+public interface JpaRoleRepository extends JpaRepository<Role, Long> {
 
     /**
      * Finds a role by name.

@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
  */
 @Schema(description = "User information response")
 public record UserResponse(
-        @Schema(description = "User ID") UUID id,
+        @Schema(description = "User ID") Long id,
 
         @Schema(description = "Username") String username,
 

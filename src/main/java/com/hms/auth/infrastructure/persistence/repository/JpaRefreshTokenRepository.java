@@ -17,7 +17,7 @@ import java.util.UUID;
  * JPA repository interface for RefreshToken entity.
  */
 @Repository
-public interface JpaRefreshTokenRepository extends JpaRepository<RefreshToken, UUID> {
+public interface JpaRefreshTokenRepository extends JpaRepository<RefreshToken, Long> {
 
     /**
      * Finds a refresh token by token string.

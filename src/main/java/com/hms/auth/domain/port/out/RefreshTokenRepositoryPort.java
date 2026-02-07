@@ -31,7 +31,7 @@ public interface RefreshTokenRepositoryPort {
      * @param id the token ID
      * @return an Optional containing the token if found
      */
-    Optional<RefreshToken> findById(UUID id);
+    Optional<RefreshToken> findById(Long id);
 
     /**
      * Finds a refresh token by token string.
@@ -96,7 +96,7 @@ public interface RefreshTokenRepositoryPort {
      *
      * @param id the token ID
      */
-    void deleteById(UUID id);
+    void deleteById(Long id);
 
     /**
      * Counts active (non-revoked) tokens for a user.

@@ -118,9 +118,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 return;
             }
 
-            // Get user ID and load user details
-            UUID userId = jwtTokenProvider.getUserIdFromToken(jwt);
-            UserDetails userDetails = userDetailsService.loadUserById(userId);
+            // Get user UUID and load user details
+            UUID userUuid = jwtTokenProvider.getUserIdFromToken(jwt);
+            UserDetails userDetails = userDetailsService.loadUserByUuid(userUuid);
 
             // Create authentication token
             UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
@@ -132,7 +132,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             // Set authentication in security context
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
-            log.debug("Successfully authenticated user: {}", userId);
+            log.debug("Successfully authenticated user: {}", userUuid);
 
         } catch (TokenException e) {
             log.debug("JWT authentication failed: {}", e.getMessage());

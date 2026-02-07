@@ -30,7 +30,7 @@ public class UserRepositoryAdapter implements UserRepositoryPort {
     }
 
     @Override
-    public Optional<User> findById(UUID id) {
+    public Optional<User> findById(Long id) {
         return jpaUserRepository.findById(id);
     }
 
@@ -42,6 +42,11 @@ public class UserRepositoryAdapter implements UserRepositoryPort {
     @Override
     public Optional<User> findByUsername(String username) {
         return jpaUserRepository.findByUsername(username);
+    }
+
+    @Override
+    public Optional<User> findByUuid(UUID uuid) {
+        return jpaUserRepository.findByUuid(uuid);
     }
 
     @Override
@@ -60,7 +65,7 @@ public class UserRepositoryAdapter implements UserRepositoryPort {
     }
 
     @Override
-    public void deleteById(UUID id) {
+    public void deleteById(Long id) {
         jpaUserRepository.deleteById(id);
     }
 

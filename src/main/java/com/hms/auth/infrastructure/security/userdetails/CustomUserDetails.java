@@ -96,7 +96,7 @@ public class CustomUserDetails implements UserDetails {
      *
      * @return the user ID
      */
-    public UUID getId() {
+    public Long getId() {
         return user.getId();
     }
 

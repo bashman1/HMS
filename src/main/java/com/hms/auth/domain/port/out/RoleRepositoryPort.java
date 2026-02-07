@@ -4,7 +4,6 @@ import com.hms.auth.domain.model.entity.Role;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 /**
  * Port interface for role repository operations.
@@ -29,7 +28,7 @@ public interface RoleRepositoryPort {
      * @param id the role ID
      * @return an Optional containing the role if found
      */
-    Optional<Role> findById(UUID id);
+    Optional<Role> findById(Long id);
 
     /**
      * Finds a role by name.
@@ -66,5 +65,5 @@ public interface RoleRepositoryPort {
      *
      * @param id the role ID
      */
-    void deleteById(UUID id);
+    void deleteById(Long id);
 }

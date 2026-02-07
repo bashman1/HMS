@@ -3,15 +3,15 @@
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/hms_auth
-    username: hms_user
-    password: hms_password
+    username: postgres
+    password: bsbs
     hikari:
       maximum-pool-size: 5
       minimum-idle: 2
       connection-timeout: 30000
       idle-timeout: 600000
       max-lifetime: 1800000
-  
+
   jpa:
     hibernate:
       ddl-auto: validate
@@ -20,12 +20,12 @@ spring:
       hibernate:
         format_sql: true
         generate_statistics: true
-  
+
   mail:
-    host: localhost
-    port: 1025
-    username: ""
-    password: ""
+    host: sandbox.smtp.mailtrap.io
+    port: 25
+    username: e3af0e49decfb5
+    password: c109a146bfaa09
     properties:
       mail:
         smtp:
@@ -66,7 +66,7 @@ app:
     secret: dev-secret-key-for-development-only-must-be-at-least-256-bits-long-for-hs256
     access-token-expiration: 3600000     # 1 hour for easier development
     refresh-token-expiration: 604800000  # 7 days
-  
+
   security:
     cors:
       allowed-origins: "*"
@@ -75,7 +75,7 @@ app:
     brute-force:
       max-attempts: 100  # More lenient in development
       lock-duration: 60
-  
+
   email:
     from: dev@hms.local
     verification:

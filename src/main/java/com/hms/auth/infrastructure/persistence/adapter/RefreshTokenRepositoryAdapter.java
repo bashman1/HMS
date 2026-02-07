@@ -30,7 +30,7 @@ public class RefreshTokenRepositoryAdapter implements RefreshTokenRepositoryPort
     }
 
     @Override
-    public Optional<RefreshToken> findById(UUID id) {
+    public Optional<RefreshToken> findById(Long id) {
         return jpaRefreshTokenRepository.findById(id);
     }
 
@@ -73,7 +73,7 @@ public class RefreshTokenRepositoryAdapter implements RefreshTokenRepositoryPort
     }
 
     @Override
-    public void deleteById(UUID id) {
+    public void deleteById(Long id) {
         jpaRefreshTokenRepository.deleteById(id);
     }
 
