@@ -3,7 +3,10 @@ package com.hms.auth;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
@@ -28,6 +31,9 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  */
 @SpringBootApplication
 @ConfigurationPropertiesScan
+@ComponentScan(basePackages = {"com.hms.auth", "com.hms.patient"})
+@EnableJpaRepositories(basePackages = {"com.hms.auth", "com.hms.patient"})
+@EntityScan(basePackages = {"com.hms.auth.domain.model.entity", "com.hms.patient.domain.model.entity"})
 @EnableCaching
 @EnableAsync
 @EnableScheduling

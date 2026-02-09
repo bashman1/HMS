@@ -89,6 +89,12 @@ public class SecurityConfig {
                         .permitAll()
                         .requestMatchers("/actuator/**").hasRole("ADMIN")
 
+                        // Patient management endpoints (requires authentication)
+                        .requestMatchers(
+                                "/patients/**",
+                                "/visits/**")
+                        .authenticated()
+
                         // OPTIONS requests for CORS preflight
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
