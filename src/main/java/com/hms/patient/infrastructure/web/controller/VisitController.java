@@ -2,6 +2,7 @@ package com.hms.patient.infrastructure.web.controller;
 
 import com.hms.patient.application.VisitService;
 import com.hms.patient.application.dto.request.CreateVisitRequest;
+import com.hms.patient.application.dto.request.UpdateVisitRequest;
 import com.hms.patient.application.dto.response.VisitResponse;
 import com.hms.patient.domain.model.entity.PatientVisit.VisitStatus;
 import io.swagger.v3.oas.annotations.Operation;
@@ -138,6 +139,52 @@ public class VisitController {
         log.info("Checking in patient for visit: {}", uuid);
 
         VisitResponse response = visitService.checkInPatient(uuid);
+        return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/{uuid}")
+    @Operation(summary = "Update visit details")
+    public ResponseEntity<VisitResponse> updateVisit(
+            @PathVariable UUID uuid,
+            @Valid @RequestBody UpdateVisitRequest request,
+            @AuthenticationPrincipal UserDetails userDetails) {
+
+        Long updatedBy = getUserId(userDetails);
+        log.info("Updating visit: {}", uuid);
+
+        VisitResponse response = visitService.updateVisit(uuid, request, updatedBy);
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/{uuid}/consultation")
+    @Operation(summary = "Save consultation notes")
+    public ResponseEntity<VisitResponse> saveConsultationNotes(
+            @PathVariable UUID uuid,
+            @RequestParam String diagnosis,
+            @RequestParam(required = false) String treatmentPlan,
+            @RequestParam(required = false) String prescription,
+            @AuthenticationPrincipal UserDetails userDetails) {
+
+        Long updatedBy = getUserId(userDetails);
+        log.info("Saving consultation notes for visit: {}", uuid);
+
+        VisitResponse response = visitService.saveConsultationNotes(uuid, diagnosis, treatmentPlan, prescription, updatedBy);
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/{uuid}/refer")
+    @Operation(summary = "Refer patient to another department")
+    public ResponseEntity<VisitResponse> referPatient(
+            @PathVariable UUID uuid,
+            @RequestParam Long referredDepartmentId,
+            @RequestParam(required = false) String referredDepartmentName,
+            @RequestParam(required = false) String referralReason,
+            @AuthenticationPrincipal UserDetails userDetails) {
+
+        Long updatedBy = getUserId(userDetails);
+        log.info("Referring patient for visit: {} to department: {}", uuid, referredDepartmentId);
+
+        VisitResponse response = visitService.referPatient(uuid, referredDepartmentId, referredDepartmentName, referralReason, updatedBy);
         return ResponseEntity.ok(response);
     }
 

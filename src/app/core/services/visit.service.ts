@@ -1,8 +1,8 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 import { environment } from '@env/environment';
-import { Visit, CreateVisitRequest, VisitStatus } from '../models/visit.model';
+import { Visit, CreateVisitRequest, UpdateVisitRequest, VisitStatus } from '../models/visit.model';
 import { PageableResponse } from './patient.service';
 
 @Injectable({
@@ -14,6 +14,10 @@ export class VisitService {
 
   createVisit(request: CreateVisitRequest): Observable<Visit> {
     return this.http.post<Visit>(this.baseUrl, request);
+  }
+
+  updateVisit(uuid: string, request: UpdateVisitRequest): Observable<Visit> {
+    return this.http.put<Visit>(`${this.baseUrl}/${uuid}`, request);
   }
 
   getVisit(uuid: string): Observable<Visit> {
@@ -60,5 +64,29 @@ export class VisitService {
 
   checkInPatient(uuid: string): Observable<Visit> {
     return this.http.post<Visit>(`${this.baseUrl}/${uuid}/check-in`, {});
+  }
+
+  saveConsultationNotes(
+    uuid: string,
+    diagnosis: string,
+    treatmentPlan?: string,
+    prescription?: string
+  ): Observable<Visit> {
+    let params = new HttpParams().set('diagnosis', diagnosis);
+    if (treatmentPlan) params = params.set('treatmentPlan', treatmentPlan);
+    if (prescription) params = params.set('prescription', prescription);
+    return this.http.post<Visit>(`${this.baseUrl}/${uuid}/consultation`, {}, { params });
+  }
+
+  referPatient(
+    uuid: string,
+    referredDepartmentId: number,
+    referredDepartmentName?: string,
+    referralReason?: string
+  ): Observable<Visit> {
+    let params = new HttpParams().set('referredDepartmentId', referredDepartmentId.toString());
+    if (referredDepartmentName) params = params.set('referredDepartmentName', referredDepartmentName);
+    if (referralReason) params = params.set('referralReason', referralReason);
+    return this.http.post<Visit>(`${this.baseUrl}/${uuid}/refer`, {}, { params });
   }
 }

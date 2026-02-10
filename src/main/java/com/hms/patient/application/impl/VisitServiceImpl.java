@@ -3,6 +3,7 @@ package com.hms.patient.application.impl;
 import com.hms.patient.application.PatientMapper;
 import com.hms.patient.application.VisitService;
 import com.hms.patient.application.dto.request.CreateVisitRequest;
+import com.hms.patient.application.dto.request.UpdateVisitRequest;
 import com.hms.patient.application.dto.response.VisitResponse;
 import com.hms.patient.domain.model.entity.Patient;
 import com.hms.patient.domain.model.entity.PatientVisit;
@@ -211,6 +212,110 @@ public class VisitServiceImpl implements VisitService {
                 .stream()
                 .map(visitMapper::toResponse)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public VisitResponse updateVisit(UUID uuid, UpdateVisitRequest request, Long updatedBy) {
+        log.info("Updating visit: {}", uuid);
+
+        PatientVisit visit = visitRepository.findByUuid(uuid)
+                .orElseThrow(() -> new IllegalArgumentException("Visit not found"));
+
+        // Update basic fields if provided
+        if (request.getVisitType() != null) {
+            visit.setVisitType(request.getVisitType());
+        }
+        if (request.getDepartmentId() != null) {
+            visit.setDepartmentId(request.getDepartmentId());
+        }
+        if (request.getDepartmentName() != null) {
+            visit.setDepartmentName(request.getDepartmentName());
+        }
+        if (request.getDoctorId() != null) {
+            visit.setDoctorId(request.getDoctorId());
+        }
+        if (request.getDoctorName() != null) {
+            visit.setDoctorName(request.getDoctorName());
+        }
+        if (request.getChiefComplaint() != null) {
+            visit.setChiefComplaint(request.getChiefComplaint());
+        }
+        if (request.getNotes() != null) {
+            visit.setNotes(request.getNotes());
+        }
+        if (request.getIsFollowUp() != null) {
+            visit.setFollowUp(request.getIsFollowUp());
+        }
+        if (request.getPriority() != null) {
+            visit.setPriority(request.getPriority());
+        }
+
+        // Update consultation fields if provided
+        if (request.getDiagnosis() != null) {
+            visit.setDiagnosis(request.getDiagnosis());
+        }
+        if (request.getTreatmentPlan() != null) {
+            visit.setTreatmentPlan(request.getTreatmentPlan());
+        }
+        if (request.getPrescription() != null) {
+            visit.setPrescription(request.getPrescription());
+        }
+
+        // Update referral fields if provided
+        if (request.getReferredDepartmentId() != null) {
+            visit.setReferredDepartmentId(request.getReferredDepartmentId());
+        }
+        if (request.getReferredDepartmentName() != null) {
+            visit.setReferredDepartmentName(request.getReferredDepartmentName());
+        }
+        if (request.getReferralReason() != null) {
+            visit.setReferralReason(request.getReferralReason());
+        }
+
+        visit.setUpdatedBy(updatedBy);
+        visit = visitRepository.save(visit);
+
+        log.info("Visit updated successfully: {}", uuid);
+        return visitMapper.toResponse(visit);
+    }
+
+    @Override
+    public VisitResponse saveConsultationNotes(UUID uuid, String diagnosis, String treatmentPlan,
+                                               String prescription, Long updatedBy) {
+        log.info("Saving consultation notes for visit: {}", uuid);
+
+        PatientVisit visit = visitRepository.findByUuid(uuid)
+                .orElseThrow(() -> new IllegalArgumentException("Visit not found"));
+
+        visit.setDiagnosis(diagnosis);
+        visit.setTreatmentPlan(treatmentPlan);
+        visit.setPrescription(prescription);
+        visit.setUpdatedBy(updatedBy);
+
+        visit = visitRepository.save(visit);
+
+        log.info("Consultation notes saved successfully: {}", uuid);
+        return visitMapper.toResponse(visit);
+    }
+
+    @Override
+    public VisitResponse referPatient(UUID uuid, Long referredDepartmentId, String referredDepartmentName,
+                                      String referralReason, Long updatedBy) {
+        log.info("Referring patient for visit: {} to department: {}", uuid, referredDepartmentId);
+
+        PatientVisit visit = visitRepository.findByUuid(uuid)
+                .orElseThrow(() -> new IllegalArgumentException("Visit not found"));
+
+        visit.setReferredDepartmentId(referredDepartmentId);
+        visit.setReferredDepartmentName(referredDepartmentName);
+        visit.setReferralReason(referralReason);
+        visit.setStatus(VisitStatus.REFERRED);
+        visit.setUpdatedBy(updatedBy);
+
+        visit = visitRepository.save(visit);
+
+        log.info("Patient referred successfully: {}", uuid);
+        return visitMapper.toResponse(visit);
     }
 
     /**

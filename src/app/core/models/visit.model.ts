@@ -17,6 +17,17 @@ export interface Visit {
   status: VisitStatus;
   chiefComplaint: string;
   notes: string;
+
+  // Consultation Details
+  diagnosis: string;
+  treatmentPlan: string;
+  prescription: string;
+
+  // Referral Details
+  referredDepartmentId: number;
+  referredDepartmentName: string;
+  referralReason: string;
+
   tokenNumber: number;
   priority: number;
   checkInTime: string;
@@ -61,4 +72,22 @@ export interface CreateVisitRequest {
   notes?: string;
   isFollowUp?: boolean;
   priority?: number;
+}
+
+export interface UpdateVisitRequest {
+  visitType?: VisitType;
+  departmentId?: number;
+  departmentName?: string;
+  doctorId?: number;
+  doctorName?: string;
+  chiefComplaint?: string;
+  notes?: string;
+  isFollowUp?: boolean;
+  priority?: number;
+  diagnosis?: string;
+  treatmentPlan?: string;
+  prescription?: string;
+  referredDepartmentId?: number;
+  referredDepartmentName?: string;
+  referralReason?: string;
 }

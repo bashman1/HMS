@@ -44,4 +44,8 @@ export const PROTECTED_ROUTES: Routes = [
     path: 'visits/register',
     loadComponent: () => import('./pages/visit-registration/visit-registration.component').then(m => m.VisitRegistrationComponent),
   },
+  {
+    path: 'visits/:uuid',
+    loadComponent: () => import('./pages/visit-details/visit-details.component').then(m => m.VisitDetailsComponent),
+  },
 ];

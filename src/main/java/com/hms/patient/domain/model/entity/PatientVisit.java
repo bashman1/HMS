@@ -78,6 +78,26 @@ public class PatientVisit {
     @Column(name = "notes", columnDefinition = "TEXT")
     private String notes;
 
+    // Consultation Details
+    @Column(name = "diagnosis", columnDefinition = "TEXT")
+    private String diagnosis;
+
+    @Column(name = "treatment_plan", columnDefinition = "TEXT")
+    private String treatmentPlan;
+
+    @Column(name = "prescription", columnDefinition = "TEXT")
+    private String prescription;
+
+    // Referral Details
+    @Column(name = "referred_department_id")
+    private Long referredDepartmentId;
+
+    @Column(name = "referred_department_name", length = 100)
+    private String referredDepartmentName;
+
+    @Column(name = "referral_reason", columnDefinition = "TEXT")
+    private String referralReason;
+
     @Column(name = "token_number")
     private Integer tokenNumber;
 

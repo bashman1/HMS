@@ -35,6 +35,16 @@ public class VisitResponse {
     private VisitStatus status;
     private String chiefComplaint;
     private String notes;
+
+    // Consultation Details
+    private String diagnosis;
+    private String treatmentPlan;
+    private String prescription;
+
+    // Referral Details
+    private Long referredDepartmentId;
+    private String referredDepartmentName;
+    private String referralReason;
     private Integer tokenNumber;
     private Integer priority;
     private Instant checkInTime;

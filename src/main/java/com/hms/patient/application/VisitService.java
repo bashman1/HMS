@@ -1,6 +1,7 @@
 package com.hms.patient.application;
 
 import com.hms.patient.application.dto.request.CreateVisitRequest;
+import com.hms.patient.application.dto.request.UpdateVisitRequest;
 import com.hms.patient.application.dto.response.VisitResponse;
 import com.hms.patient.domain.model.entity.PatientVisit.VisitStatus;
 import org.springframework.data.domain.Page;
@@ -125,4 +126,40 @@ public interface VisitService {
      * @return list of visit responses
      */
     List<VisitResponse> getVisitsByStatus(VisitStatus status);
+
+    /**
+     * Updates visit details.
+     *
+     * @param uuid the visit UUID
+     * @param request the update request
+     * @param updatedBy the user ID of the updater
+     * @return the updated visit response
+     */
+    VisitResponse updateVisit(UUID uuid, UpdateVisitRequest request, Long updatedBy);
+
+    /**
+     * Saves consultation notes for a visit.
+     *
+     * @param uuid the visit UUID
+     * @param diagnosis the diagnosis
+     * @param treatmentPlan the treatment plan
+     * @param prescription the prescription
+     * @param updatedBy the user ID of the updater
+     * @return the updated visit response
+     */
+    VisitResponse saveConsultationNotes(UUID uuid, String diagnosis, String treatmentPlan,
+                                         String prescription, Long updatedBy);
+
+    /**
+     * Refers a patient to another department.
+     *
+     * @param uuid the visit UUID
+     * @param referredDepartmentId the referred department ID
+     * @param referredDepartmentName the referred department name
+     * @param referralReason the reason for referral
+     * @param updatedBy the user ID of the updater
+     * @return the updated visit response
+     */
+    VisitResponse referPatient(UUID uuid, Long referredDepartmentId, String referredDepartmentName,
+                               String referralReason, Long updatedBy);
 }
